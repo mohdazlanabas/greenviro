@@ -1,3 +1,4 @@
+
 #!/usr/bin/env zsh
 
 # Git Auto-Update Script for Greenviro Project (ZSH)
@@ -45,8 +46,17 @@ fi
 echo "➕ Adding all changes..."
 git add .
 
-# Use fixed commit message
-COMMIT_MSG="This Update Automatically From zsh Script."
+# Prompt for a commit message
+echo "💬 Please enter a commit message:"
+read COMMIT_MSG
+
+# Check if commit message is empty
+if [[ -z "$COMMIT_MSG" ]]; then
+    echo "❌ Commit message cannot be empty. Aborting."
+    # Unstage changes so the user can try again without re-adding
+    git reset
+    exit 1
+fi
 
 # Commit changes
 echo "💾 Committing changes with message: '$COMMIT_MSG'"
